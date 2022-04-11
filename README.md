@@ -2,6 +2,12 @@
 
 Embed code samples from different frameworks with a live preview inside your existing Docusaurus pages.
 
+<p align="center">
+  <a href="#">
+    <img alt="Code Preview Example" src="https://github.com/sean-perkins/docusaurus-plugin-code-preview/blob/main/.github/assets/demo.png?raw=true" />
+  </a>
+</p>
+
 ## Quick Installation
 
 Install the package dependency into your docusaurus project:
