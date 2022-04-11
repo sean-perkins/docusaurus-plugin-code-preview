@@ -1,8 +1,7 @@
-
 export type FrameSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export const FRAME_SIZES: {
-  [key in FrameSize]: string
+  [key in FrameSize]: string;
 } = {
   xs: '100px',
   sm: '200px',

@@ -17,6 +17,8 @@ interface PreviewFrameProps {
    * `true` if the frame should display the preview in dark mode.
    */
   isDarkMode: boolean;
+
+  title?: string;
 }
 
 export const PreviewFrame = ({
@@ -25,6 +27,7 @@ export const PreviewFrame = ({
   baseUrl,
   isVisible,
   isDarkMode,
+  title,
 }: PreviewFrameProps) => {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const frameSrc = useMemo(() => src(baseUrl), [src, baseUrl]);
@@ -47,11 +50,12 @@ export const PreviewFrame = ({
         }
       });
     }
-  }, []);
+  }, [isDarkMode]);
   return (
     <iframe
       ref={frameRef}
       src={frameSrc}
+      title={title}
       height={[size in FRAME_SIZES] ? FRAME_SIZES[size as FrameSize] : size}
       className={!isVisible ? 'frame-hidden' : ''}
     />

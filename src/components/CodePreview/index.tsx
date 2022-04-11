@@ -98,7 +98,7 @@ export const CodePreview = ({
       codeSnippets[key] = (code as any)[key]({});
     });
     setCodeSnippets(codeSnippets);
-  }, []);
+  }, [code]);
 
   let stackBlitzTooltip;
   if (controls?.stackblitz && typeof controls.stackblitz !== 'boolean') {
