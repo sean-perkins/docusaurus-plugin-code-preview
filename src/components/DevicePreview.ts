@@ -1,14 +1,14 @@
 class DevicePreview extends HTMLElement {
   static get observedAttributes() {
-    return ["mode"];
+    return ['mode'];
   }
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
-      const _style = document.createElement("style");
+      const _style = document.createElement('style');
       _style.innerHTML = `
    :host {
      --device-padding: 1rem;
@@ -125,7 +125,7 @@ class DevicePreview extends HTMLElement {
  
  `;
 
-      const _template = document.createElement("template");
+      const _template = document.createElement('template');
       _template.innerHTML = `
         <figure>
           <svg class="md-bar" viewBox="0 0 1384.3 40.3">
@@ -151,23 +151,27 @@ class DevicePreview extends HTMLElement {
     this.modeChanged();
   }
 
-  attributeChangedCallback(name: string, _previousValue: string, _nextValue: string) {
-    if (name === "mode") {
+  attributeChangedCallback(
+    name: string,
+    _previousValue: string,
+    _nextValue: string
+  ) {
+    if (name === 'mode') {
       this.modeChanged();
     }
   }
 
   modeChanged() {
-    const mode = this.getAttribute("mode");
+    const mode = this.getAttribute('mode');
     if (this.shadowRoot) {
-      this.shadowRoot.host.classList.toggle("ios", mode === "ios");
-      this.shadowRoot.host.classList.toggle("md", mode === "md");
+      this.shadowRoot.host.classList.toggle('ios', mode === 'ios');
+      this.shadowRoot.host.classList.toggle('md', mode === 'md');
     }
   }
 }
 
 export function defineCustomElement() {
   if (window.customElements.get('device-preview') === undefined) {
-    window.customElements.define("device-preview", DevicePreview);
+    window.customElements.define('device-preview', DevicePreview);
   }
 }
