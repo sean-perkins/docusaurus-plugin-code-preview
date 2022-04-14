@@ -13,6 +13,8 @@ import { CopyCodeButton } from '../CopyCodeButton';
 import { PreviewFrame } from '../PreviewFrame';
 import { FrameSize } from '../../utils/frame-sizes';
 
+import { defineCustomElement } from '../DevicePreview';
+
 interface CodePreviewProps {
   /**
    * The code snippets to be displayed in the code preview.
@@ -45,6 +47,8 @@ interface CodePreviewProps {
         }
       | boolean;
   };
+  devicePreview?: boolean;
+  defaultExpanded?: boolean;
   /**
    * The size of the code preview frame. Default is `sm`.
    */
@@ -62,13 +66,15 @@ export const CodePreview = ({
   controls,
   onOpenOutputTarget,
   isDarkMode,
+  devicePreview,
+  defaultExpanded,
 }: CodePreviewProps) => {
   const codeRef = useRef<HTMLDivElement>(null);
 
   const [outputTarget, setOutputTarget] = useState(
     output?.defaultOutput ?? Object.keys(code)[0]
   );
-  const [codeExpanded, setCodeExpanded] = useState(false);
+  const [codeExpanded, setCodeExpanded] = useState(defaultExpanded ?? true);
   const [codeSnippets, setCodeSnippets] = useState({} as any);
 
   const [selectedViewport, setSelectedViewport] = useState<string | null>(
@@ -99,6 +105,10 @@ export const CodePreview = ({
     });
     setCodeSnippets(codeSnippets);
   }, [code]);
+
+  useEffect(() => {
+    defineCustomElement();
+  });
 
   let stackBlitzTooltip;
   if (controls?.stackblitz && typeof controls.stackblitz !== 'boolean') {
@@ -156,20 +166,21 @@ export const CodePreview = ({
           </div>
         </div>
         <div className="code-preview__preview">
-          {/* 
-            We render an iframe for each viewport.
-            When the selected viewport changes, we hide one frame
-            and show the other. This is done to avoid flickering
-            and doing unnecessary reloads when switching viewports.
-          */}
+          {/*
+           * We render an iframe for each viewport.
+           * When the selected viewport changes, we hide one frame
+           * and show the other. This is done to avoid flickering
+           * and doing unnecessary reloads when switching viewports.
+           */}
           {source &&
             viewport?.viewports.map(({ src, name }) => (
               <PreviewFrame
                 key={`frame-${name}`}
                 isVisible={selectedViewport === name}
-                baseUrl={source}
+                baseUrl={source!}
                 src={src}
                 size={size ?? 'sm'}
+                devicePreview={devicePreview}
                 isDarkMode={isDarkMode === true}
               />
             ))}
