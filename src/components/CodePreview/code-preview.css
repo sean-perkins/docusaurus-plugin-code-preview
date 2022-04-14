@@ -188,7 +188,7 @@
   width: 100%;
 }
 
-.code-preview iframe.frame-hidden {
+.code-preview .frame-hidden {
   display: none;
 }
 

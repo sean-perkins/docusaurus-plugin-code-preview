@@ -125,6 +125,23 @@ export default function Playground(props) {
 }
 ```
 
+## Show Example in Device Frame
+
+To display a mobile device chrome around the embedded iframe examples, use the `devicePreview` option on `CodePreview`:
+
+```tsx
+export default function Playground(props) {
+  return (
+    <CodePreview
+      devicePreview={true}
+      // Your existing options
+    />
+  );
+}
+```
+
+By default, the mobile device chrome will resemble an Android device. To make the device chrome update to an iPhone, append `?mode=ios` to the source of the iframe. You can make this apply to all iframe examples by updating the `src` rules for the viewport demonstrated above.
+
 ## Advanced
 
 ### Stackblitz Examples

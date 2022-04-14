@@ -8,6 +8,9 @@ interface PreviewFrameProps {
    * or an explicit pixel value.
    */
   size: FrameSize | string;
+  /**
+   * The base URL of the site.
+   */
   baseUrl: string;
   /**
    * `true` if the selected viewport matches the frame source.
@@ -17,7 +20,13 @@ interface PreviewFrameProps {
    * `true` if the frame should display the preview in dark mode.
    */
   isDarkMode: boolean;
-
+  /**
+   * `true` if the iframe should be rendered inside of a device shell.
+   */
+  devicePreview?: boolean;
+  /**
+   * The title to be assigned to the iframe.
+   */
   title?: string;
 }
 
@@ -28,6 +37,7 @@ export const PreviewFrame = ({
   isVisible,
   isDarkMode,
   title,
+  devicePreview,
 }: PreviewFrameProps) => {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const frameSrc = useMemo(() => src(baseUrl), [src, baseUrl]);
@@ -51,15 +61,31 @@ export const PreviewFrame = ({
       });
     }
   }, [isDarkMode]);
-  return (
-    <iframe
-      ref={frameRef}
-      src={frameSrc}
-      title={title}
-      height={[size in FRAME_SIZES] ? FRAME_SIZES[size as FrameSize] : size}
-      className={!isVisible ? 'frame-hidden' : ''}
-    />
-  );
+
+  function renderFrame() {
+    return (
+      <iframe
+        ref={frameRef}
+        src={frameSrc}
+        title={title}
+        height={[size in FRAME_SIZES] ? FRAME_SIZES[size as FrameSize] : size}
+        className={!isVisible ? 'frame-hidden' : ''}
+      />
+    );
+  }
+
+  if (devicePreview) {
+    const isIOS = frameSrc.includes('mode=ios');
+    return (
+      <div className={!isVisible ? 'frame-hidden' : ''}>
+        <device-preview mode={isIOS ? 'ios' : 'md'}>
+          {renderFrame()}
+        </device-preview>
+      </div>
+    );
+  }
+
+  return renderFrame();
 };
 
 const waitForFrame = (frame: HTMLIFrameElement) => {
