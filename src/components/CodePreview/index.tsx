@@ -20,8 +20,6 @@ interface CodePreviewProps {
    * The code snippets to be displayed in the code preview.
    */
   code: { [key: string]: () => {} };
-  title?: string;
-  description?: string;
   source?: string;
   output?: {
     outputs: {
@@ -47,12 +45,21 @@ interface CodePreviewProps {
         }
       | boolean;
   };
+  /**
+   * `true` if the iframe preview should be displayed in a device chrome.
+   */
   devicePreview?: boolean;
+  /**
+   * `true` if the code snippet should be initially expanded.
+   */
   defaultExpanded?: boolean;
   /**
    * The size of the code preview frame. Default is `sm`.
    */
   size?: FrameSize | string;
+  /**
+   * `true` if the code preview should display in dark mode.
+   */
   isDarkMode?: boolean;
   onOpenOutputTarget?: (outputTarget: string, codeBlock: string) => void;
 }
