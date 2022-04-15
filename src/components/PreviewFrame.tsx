@@ -4,10 +4,15 @@ import { FrameSize, FRAME_SIZES } from '../utils/frame-sizes';
 interface PreviewFrameProps {
   src: (baseUrl: string) => string;
   /**
-   * Developers can set a predefined size
+   * Developers can set a predefined height
    * or an explicit pixel value.
    */
-  size: FrameSize | string;
+  height: FrameSize | string;
+  /**
+   * Developers can set a predefined width
+   * or an explicit pixel value.
+   */
+  width: string | number;
   /**
    * The base URL of the site.
    */
@@ -32,7 +37,8 @@ interface PreviewFrameProps {
 
 export const PreviewFrame = ({
   src,
-  size,
+  height,
+  width,
   baseUrl,
   isVisible,
   isDarkMode,
@@ -68,7 +74,10 @@ export const PreviewFrame = ({
         ref={frameRef}
         src={frameSrc}
         title={title}
-        height={[size in FRAME_SIZES] ? FRAME_SIZES[size as FrameSize] : size}
+        height={
+          [height in FRAME_SIZES] ? FRAME_SIZES[height as FrameSize] : height
+        }
+        width={width}
         className={!isVisible ? 'frame-hidden' : ''}
       />
     );

@@ -184,8 +184,6 @@
 .code-preview iframe {
   box-shadow: none;
   background: transparent;
-
-  width: 100%;
 }
 
 .code-preview .frame-hidden {

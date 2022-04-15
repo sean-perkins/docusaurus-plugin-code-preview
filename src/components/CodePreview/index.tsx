@@ -20,7 +20,7 @@ interface CodePreviewProps {
    * The code snippets to be displayed in the code preview.
    */
   code: { [key: string]: () => {} };
-  source?: string;
+  src?: string;
   output?: {
     outputs: {
       name: string;
@@ -54,9 +54,13 @@ interface CodePreviewProps {
    */
   defaultExpanded?: boolean;
   /**
+   * The width of the code preview frame. Default is `100%`.
+   */
+  width?: string | number;
+  /**
    * The size of the code preview frame. Default is `sm`.
    */
-  size?: FrameSize | string;
+  height?: FrameSize | string;
   /**
    * `true` if the code preview should display in dark mode.
    */
@@ -66,9 +70,10 @@ interface CodePreviewProps {
 
 export const CodePreview = ({
   code,
-  source,
+  src,
   viewport,
-  size,
+  height,
+  width,
   output,
   controls,
   onOpenOutputTarget,
@@ -179,14 +184,15 @@ export const CodePreview = ({
            * and show the other. This is done to avoid flickering
            * and doing unnecessary reloads when switching viewports.
            */}
-          {source &&
-            viewport?.viewports.map(({ src, name }) => (
+          {src &&
+            viewport?.viewports.map(viewport => (
               <PreviewFrame
-                key={`frame-${name}`}
-                isVisible={selectedViewport === name}
-                baseUrl={source!}
-                src={src}
-                size={size ?? 'sm'}
+                key={`frame-${viewport.name}`}
+                isVisible={selectedViewport === viewport.name}
+                baseUrl={src!}
+                src={viewport.src}
+                width={width ?? '100%'}
+                height={height ?? 'sm'}
                 devicePreview={devicePreview}
                 isDarkMode={isDarkMode === true}
               />
