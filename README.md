@@ -26,7 +26,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { CodePreview } from 'docusaurus-plugin-code-preview';
 
 export default function Playground(props) {
-  return <CodePreview {...props} source={useBaseUrl(props.source)} />;
+  return <CodePreview {...props} src={useBaseUrl(props.src)} />;
 }
 ```
 
