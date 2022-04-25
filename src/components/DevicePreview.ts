@@ -34,8 +34,6 @@ class DevicePreview extends HTMLElement {
      width: var(--device-width);
      height: var(--device-height);
  
-     overflow: hidden;
- 
      position: relative;
  
      z-index: 1;
@@ -96,7 +94,7 @@ class DevicePreview extends HTMLElement {
      left: 50%;
      position: absolute;
      top: 0px;
-     transform: translateX(-50%);
+     transform: translate(-50%, -1px);
      width: 165px;
      z-index: 2;
    }

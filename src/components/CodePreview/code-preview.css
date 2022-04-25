@@ -190,6 +190,57 @@
   display: none;
 }
 
+/** Tabs **/
+.code-preview .tabs-container {
+  background: var(--c-indigo-10);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.code-preview .tabs {
+  background: #e9edf3;
+
+  --ifm-tabs-spacing: 0;
+}
+
+.code-preview .tabs-nav {
+  margin-block-start: 0px !important;
+}
+
+.code-preview .tabs__item {
+  color: #03060b;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0;
+  white-space: nowrap;
+  height: 40px;
+}
+
+.code-preview .tabs__item:last-child {
+  margin-right: 40px;
+}
+
+.code-preview__tab-item.hidden {
+  height: 0px;
+  overflow: hidden;
+}
+
+.code-preview .tabs__item:not(.tabs__item--active) {
+  border-left: 1px solid #dee3ea;
+  border-bottom: 1px solid #dee3ea;
+}
+
+.code-preview .tabs__item--active {
+  border-color: transparent;
+  background: #f6f8fc;
+  font-weight: 400;
+}
+
+.code-preview .tabs__item--active:hover {
+  background: #f6f8fc;
+}
+
 /*
  * Tooltip is inserted into the DOM within the body element.
  * Styles scoped within this component will not be inherited.

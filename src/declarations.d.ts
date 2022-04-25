@@ -3,3 +3,8 @@ declare namespace JSX {
     'device-preview': any;
   }
 }
+
+declare module '*.css' {
+  const content: { [className: string]: string };
+  export default content;
+}
