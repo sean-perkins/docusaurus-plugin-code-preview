@@ -142,7 +142,46 @@ export default function Playground(props) {
 
 By default, the mobile device chrome will resemble an Android device. To make the device chrome update to an iPhone, append `?mode=ios` to the source of the iframe. You can make this apply to all iframe examples by updating the `src` rules for the viewport demonstrated above.
 
+## Reset Demo
+
+You can enable the "Reset demo" button to allow users to click a button to reload the contents of the iframe previews.
+
+```tsx
+export default function Playground(props) {
+  return (
+    <CodePreview
+      controls={{
+        resetDemo: true, // you can optional pass an object to configure the tooltip
+      }}
+      // Your existing options
+    />
+  );
+}
+```
+
 ## Advanced
+
+### Multi-file Code Snippets
+
+There are plenty of instances where multiple files must be modified to accomplish a demo example. In those cases, you can specify multiple files to render in the code preview.
+
+The `key` of the `code` options is the available output targets configured in your main `Playground` component. You can intermix multi-file examples for a single output target and a single file example with another output target.
+
+```tsx
+import file_one from './file-one.md';
+import file_two from './file-two.md';
+
+<CodePreview
+  code={{
+    javascript: {
+      files: {
+        'src/file-one.html': file_one,
+        'src/file-two.html': file_two,
+      },
+    },
+  }}
+/>;
+```
 
 ### Stackblitz Examples
 
