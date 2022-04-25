@@ -129,7 +129,7 @@ function TabsComponent(props: any): JSX.Element {
         tabsNavEl.current.scrollWidth > tabsNavEl.current.offsetWidth
       );
     }
-  }, []);
+  }, [tabsNavEl]);
 
   return (
     <div className={clsx('tabs-container', styles.tabList)}>
