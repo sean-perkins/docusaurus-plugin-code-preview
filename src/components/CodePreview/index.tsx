@@ -94,6 +94,11 @@ interface CodePreviewProps {
     codeBlock: string,
     options?: OutputTargetOptions
   ) => void;
+
+  /**
+   * A custom editor to be displayed in the code preview.
+   */
+  editor?: (props: { codeExpanded: boolean }) => React.ReactElement;
 }
 
 export const CodePreview = ({
@@ -108,6 +113,7 @@ export const CodePreview = ({
   isDarkMode,
   devicePreview,
   defaultExpanded,
+  editor: Editor,
 }: CodePreviewProps) => {
   const hostRef = createRef<HTMLDivElement>();
   const codeRef = useRef<HTMLDivElement>(null);
@@ -314,16 +320,21 @@ export const CodePreview = ({
             ))}
         </div>
       </div>
-      <div
-        ref={codeRef}
-        className={
-          'code-preview__code-block ' +
-          (codeExpanded ? 'code-preview__code-block--expanded' : '')
-        }
-        aria-expanded={codeExpanded ? 'true' : 'false'}
-      >
-        {renderCodeSnippets()}
-      </div>
+
+      {Editor ? (
+        <Editor codeExpanded={codeExpanded} />
+      ) : (
+        <div
+          ref={codeRef}
+          className={
+            'code-preview__code-block ' +
+            (codeExpanded ? 'code-preview__code-block--expanded' : '')
+          }
+          aria-expanded={codeExpanded ? 'true' : 'false'}
+        >
+          {renderCodeSnippets()}
+        </div>
+      )}
     </div>
   );
 };
