@@ -1,4 +1,5 @@
-import { useScrollPositionBlocker, duplicates } from '@docusaurus/theme-common';
+import { duplicates } from '@docusaurus/theme-common/lib';
+import { useScrollPositionBlocker } from '@docusaurus/theme-common/src/utils/scrollUtils';
 
 import clsx from 'clsx';
 
