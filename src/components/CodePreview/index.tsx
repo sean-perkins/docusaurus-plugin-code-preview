@@ -36,25 +36,17 @@ interface OutputTargetOptions {
   };
 }
 
-interface CodePreviewProps {
+interface RawCodePreviewProps {
   /**
    * The code snippets to be displayed in the code preview.
    */
   code: { [key: string]: () => {} } | OutputTargetOptions;
-  src?: string;
   output?: {
     outputs: {
       name: string;
       value?: string;
     }[];
     defaultOutput: string;
-  };
-  viewport?: {
-    viewports: {
-      name: string;
-      src: (baseUrl: string) => string;
-    }[];
-    defaultViewport: string;
   };
   controls?: {
     reportIssue?: {
@@ -101,10 +93,46 @@ interface CodePreviewProps {
   editor?: (props: { codeExpanded: boolean }) => React.ReactElement;
 }
 
+type CodePreviewLiveProps = RawCodePreviewProps & {
+  /**
+   * The mode to display the code preview in.
+   */
+  previewMode: 'live';
+  /**
+   * The preview to be displayed in the code preview.
+   */
+  preview: React.ReactElement;
+  /**
+   * The viewports to display in the code preview.
+   */
+  viewport: {
+    viewports: { name: string }[];
+    defaultViewport: string;
+  };
+};
+
+type CodePreviewIframeProps = RawCodePreviewProps & {
+  /**
+   * The mode to display the code preview in.
+   */
+  previewMode: 'iframe';
+  /**
+   * The URL of the preview to be displayed in the code preview.
+   */
+  src: string;
+  /**
+   * The viewports to display in the code preview.
+   */
+  viewport: {
+    viewports: { name: string; src: (baseUrl: string) => string }[];
+    defaultViewport: string;
+  };
+};
+
+type CodePreviewProps = CodePreviewLiveProps | CodePreviewIframeProps;
+
 export const CodePreview = ({
   code,
-  src,
-  viewport,
   height,
   width,
   output,
@@ -114,6 +142,7 @@ export const CodePreview = ({
   devicePreview,
   defaultExpanded,
   editor: Editor,
+  ...props
 }: CodePreviewProps) => {
   const hostRef = createRef<HTMLDivElement>();
   const codeRef = useRef<HTMLDivElement>(null);
@@ -125,7 +154,7 @@ export const CodePreview = ({
   const [codeSnippets, setCodeSnippets] = useState({} as any);
 
   const [selectedViewport, setSelectedViewport] = useState<string | null>(
-    viewport?.defaultViewport ?? null
+    props.viewport.defaultViewport
   );
 
   function copySourceCode() {
@@ -266,7 +295,7 @@ export const CodePreview = ({
             })}
           </div>
           <div className="code-preview__control-group">
-            {viewport?.viewports.map(({ name }) => (
+            {props.viewport.viewports.map(({ name }) => (
               <ControlButton
                 key={`viewport-${name}`}
                 isSelected={selectedViewport === name}
@@ -299,18 +328,21 @@ export const CodePreview = ({
           </div>
         </div>
         <div className="code-preview__preview">
+          {props.previewMode === 'live' && props.preview}
+
           {/*
            * We render an iframe for each viewport.
            * When the selected viewport changes, we hide one frame
            * and show the other. This is done to avoid flickering
            * and doing unnecessary reloads when switching viewports.
            */}
-          {src &&
-            viewport?.viewports.map(viewport => (
+          {props.previewMode === 'iframe' &&
+            props.src &&
+            props.viewport.viewports.map(viewport => (
               <PreviewFrame
                 key={`frame-${viewport.name}`}
                 isVisible={selectedViewport === viewport.name}
-                baseUrl={src!}
+                baseUrl={props.src}
                 src={viewport.src}
                 width={width ?? '100%'}
                 height={height ?? 'sm'}
