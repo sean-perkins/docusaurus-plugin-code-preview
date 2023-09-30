@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Stackblitz"]
+  "cSpell.words": ["Stackblitz"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
