@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,8 +33,12 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "docusaurus-plugin-code-preview",
-  "author": "Sean Perkins",
+  "name": "@richardaum/docusaurus-plugin-code-preview",
+  "author": "Richard Lopes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richardaum/docusaurus-plugin-code-preview.git"
+  },
   "module": "dist/docusaurus-plugin-code-preview.esm.js",
   "size-limit": [
     {
