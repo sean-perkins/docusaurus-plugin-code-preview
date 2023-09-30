@@ -54,24 +54,24 @@
   ],
   "devDependencies": {
     "@docusaurus/types": "2.4.3",
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "@types/react": "^17.0.1",
+    "@size-limit/preset-small-lib": "^8.0.0",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "clsx": "^1.1.1",
+    "clsx": "^2.0.0",
     "husky": "^7.0.4",
-    "postcss": "^8.4.12",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "postcss": "^8.4.31",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
+    "tslib": "^2.6.2",
     "typescript": "^5"
   },
   "dependencies": {
-    "@tippyjs/react": "^4.2.6",
-    "@docusaurus/core": "2.4.3",
-    "@docusaurus/theme-classic": "2.4.3"
+    "@docusaurus/core": "^2.4.3",
+    "@docusaurus/theme-classic": "^2.4.3",
+    "@tippyjs/react": "^4.2.6"
   },
   "overrides": {
     "typescript": "^5"
